@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react'
 import './App.css';
 
 function App() {
+  let colors = [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "cyan",
+    "cornflowerblue",
+    "blue",
+    "darkblue",
+    "violet",
+    "purple",
+    "pink"
+  ];
+  const [color, setColor] = useState(0);
+  const divBack = { backgroundColor: colors[color] };
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setColor((prev) => (prev >= colors.length ? (prev = 0) : prev + 1));
+    }, 1000);
+    return () => {
+      clearInterval(intervalId);
+    };
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={divBack} className="div">
+      <h1>{colors[color]}</h1>
     </div>
   );
 }
